@@ -4,8 +4,10 @@
 # include <stdio.h>
 # include <unistd.h>
 # include <stdlib.h>
+# include <stddef.h>
 # include "./libft42/libft.h"
 
-int	main(char **av);
+char	*find_path(char **env);
+int	main(char **env);
 
 #endif

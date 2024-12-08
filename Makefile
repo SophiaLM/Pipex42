@@ -10,7 +10,7 @@ RM = rm -f
 
 FTLIB = Libft42/libft.a
 
-SRC = pipex.c 
+SRC = path.c 
 
 OBJ = $(SRC:%.c=%.o)
 
