@@ -1,36 +1,29 @@
 NAME = pipex
 
-LIB = ar rcs
-
-CFLAGS = -Wall -Wextra -Werror
-
 CC = gcc
 
-RM = rm -f
+CFLAGS = -Werror -Wall -Wextra
 
-FTLIB = Libft42/libft.a
+RM = rm -rf
 
-SRC = path.c 
+SRCS =	src/path.c\
+		libft42/libft.a\
 
-OBJ = $(SRC:%.c=%.o)
+$(NAME) :
+	make all -C libft42
+	gcc $(CFLAGS) $(SRCS) -o $(NAME)
 
-all: $(NAME)
 
-$(NAME): $(OBJ)
-	@$(MAKE) -C Libft42
-	$(LIB) $(NAME) $(OBJ)
+all : $(NAME)
 
-%.o: %.c
-	$(CC) $(CFLAGS) -c $^ -o $@
-
-clean:
-	@$(MAKE) clean -C Libft42
-	$(RM) $(OBJ)
-
-fclean: clean
-	@$(MAKE) fclean -C Libft42
+fclean : clean
 	$(RM) $(NAME)
+	make fclean -C libft42
 
-re:	fclean all
+clean :
+	$(RM) $(NAME)
+	make clean -C libft42
+
+re : fclean all
 
 .PHONY: all bonus clean fclean re
