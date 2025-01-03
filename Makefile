@@ -8,8 +8,6 @@ CC = gcc
 
 RM = rm -r
 
-SRCLIB = libft42/libft.a \
-
 SRC = pipex.c \
       path.c
 
@@ -22,11 +20,11 @@ $(NAME): $(OBJ)
 	$(LIB) $(NAME) $(OBJ)
 
 %o: %.c
-	$() $() -c $^ -o $@
+	$(CC) $(CFLAGS) -c $^ -o $@
 
 clean:
-	$(RM) $(NAME)
-	make fclean -C libft42
+	$(RM) $(OBJ)
+	make clean -C libft42
 
 fclean: clean
 	$(RM) $(NAME)
