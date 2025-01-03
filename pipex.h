@@ -7,6 +7,7 @@
 # include <unistd.h>
 # include <sys/wait.h>
 # include <stdlib.h>
+# include "libft42/libft.h"
 
 void	*first_child(char **av, int *fd, char **env);
 void	*second_child(char **av, int *fd, char **env);
