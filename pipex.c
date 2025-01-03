@@ -1,5 +1,4 @@
 #include "pipex.h"
-#include <stdlib.h>
 
 void	*first_child(char **av, int *fd, char **env)
 {
