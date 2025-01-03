@@ -2,12 +2,16 @@
 # define PIPEX_H
 
 # include <stdio.h>
-# include <unistd.h>
-# include <stdlib.h>
 # include <stddef.h>
-# include "./libft42/libft.h"
+# include <fcntl.h>
+# include <unistd.h>
+# include <sys/wait.h>
+# include <stdlib.h>
 
+void	*first_child(char **av, int *fd, char **env);
+void	*second_child(char **av, int *fd, char **env);
 char	*find_path(char **env);
-int	main(char **env);
+char	*find_cmd(char *path, char *cmd);
+char	*relative_path(char **av, char **env);
 
 #endif

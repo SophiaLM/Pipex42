@@ -4,20 +4,27 @@ CC = gcc
 
 CFLAGS = -Werror -Wall -Wextra
 
-RM = rm -rf
+RM = rm -rf 
 
-SRCS =	src/path.c\
-		libft42/libft.a\
+LIB = libft42/libft.a \
 
-$(NAME) :
+SRC = pipex.c \
+      path.c 
+
+OBJ = $(SRC:%.c=%.o)
+
+$(NAME) : $(OBJ)
 	make all -C libft42
-	gcc $(CFLAGS) $(SRCS) -o $(NAME)
+	gcc $(CFLAGS) $(OBJ) -o $(NAME)
 
 
 all : $(NAME)
 
+%.o: %.c
+	$(CC) $(CFLAGS) -c $^ -o $@
+
 fclean : clean
-	$(RM) $(NAME)
+	$(RM)  $(NAME)
 	make fclean -C libft42
 
 clean :
