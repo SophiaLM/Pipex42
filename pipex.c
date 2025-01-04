@@ -1,5 +1,7 @@
 #include "pipex.h"
 
+//Primer hijo, proceso uno que trabaja con el primer comando
+
 void	*first_child(char **av, int *fd, char **env)
 {
 	int	infile; //para abrir nuestro fd y trabajar con el;

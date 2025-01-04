@@ -4,12 +4,11 @@
 
 char	*find_path(char **env)
 {
-	char	*path;
 	int	i;
 
-	i = 0;
 	if (!env) // Si **env no existe falla;
 		return (NULL);
+	i = 0;
 	while (env[i]) //Recorremos el **env;
 	{
 		if (ft_strncmp(env[i], "PATH=", 5) == 0) //Buscar el path;
@@ -43,14 +42,21 @@ char	*find_cmd(char *path, char *cmd)
 	return (NULL);
 }
 
-char	*relative_path(char **av, char **env)
+//Para ejecutar las anteriores, tiene que devolver array por el execve
+
+char	**relative_path(char *av, char **env)
 {
 	char	*path;
 	char	*cmd;
+	char	**command;
 
 	path = find_path(env);
-	cmd = find_cmd(path, av[2]);
-	return (cmd);
+	cmd = find_cmd(path, av);
+	if (cmd)
+		command = ft_split(cmd, ' ');
+	else
+		command = NULL;
+	return (command);
 }
 
 /*

@@ -8,8 +8,6 @@ CC = gcc
 
 RM = rm -f
 
-LIBFT = libft42/libft.a
-
 SRC = pipex.c \
       path.c \
 
@@ -17,7 +15,7 @@ OBJ = $(SRC:%.c=%.o)
 
 all: $(NAME)
 
-$(NAME): $(OBJ) $(LIBFT)
+$(NAME): $(OBJ) 
 	make all -C libft42
 	$(LIB) $(NAME) $(OBJ) $(LIBFT)
 
