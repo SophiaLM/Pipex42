@@ -9,19 +9,19 @@ void	*first_child(char **av, int *fd, char **env)
 
 	infile = open(av[1], O_RDONLY); //abrimos solo con lectura, fd[0]
 
-	dup2(infile, STDIN_FILENO);
-	close(infile);
-	dup2(fd[1], STDOUT_FILENO);
+	dup2(infile, STDIN_FILENO); //tranferimos la informacion de infile a la entrada de la tuberia;
+	close(infile); //Hay que cerrar todo aquello que ya no usamos;
+	dup2(fd[1], STDOUT_FILENO); //redirigimos la entrada de escritura, asi envia el resultado a traves del pipe;
 	close(fd[0]);
 	close(fd[1]);
 
-	if (ft_strchr(av[2], '/'))
+	if (ft_strchr(av[2], '/')) //para la ruta absoluta
 		command = ft_split(av[2], ' ');
-	else
+	else //para las relativas
 		command = relative_path(av[2], env);
-	if (command && command[0])
+	if (command && command[0]) //para comprobar que el cmd existe/es ejecutable
 		execve(command[0], command, env);
-	exit(127);
+	exit(127); //comando no encontrado
 }
 
 void	*second_child(char **av, int *fd, char **env)
@@ -29,7 +29,7 @@ void	*second_child(char **av, int *fd, char **env)
 	int	outfile;
 	char	**command;
 
-	outfile = open(av[4], O_WRONLY | O_CREAT | O_TRUNC, 666);
+	outfile = open(av[4], O_WRONLY | O_CREAT | O_TRUNC, 0777);
 
 	dup2(outfile, STDOUT_FILENO);
 	close(outfile);
