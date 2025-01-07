@@ -29,7 +29,7 @@ void	*second_child(char **av, int *fd, char **env)
 	int	outfile;
 	char	**command;
 
-	outfile = open(av[4], O_WRONLY | O_CREAT | O_TRUNC, 0777);
+	outfile = open(av[4], O_WRONLY | O_CREAT | O_TRUNC, 0644);
 
 	dup2(outfile, STDOUT_FILENO);
 	close(outfile);
