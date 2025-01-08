@@ -3,7 +3,7 @@
 char	*ft_error(char *mensaje)
 {
 	perror(mensaje);
-	return (NULL);
+	exit(1);
 }
 
 char	*find_path(char **env)
@@ -26,7 +26,7 @@ char	*find_path(char **env)
 char	*find_cmd(char *path, char *cmd)
 {
 	char	**temp;
-	int	i;
+	int		i;
 
 	i = 0;
 	temp = ft_split(path, ':');
@@ -35,7 +35,7 @@ char	*find_cmd(char *path, char *cmd)
 		temp[i] = ft_strjoin(temp[i], "/");
 		temp[i] = ft_strjoin(temp[i], cmd);
 		if (access(temp[i], X_OK) == 0)
-			return(temp[i]);
+			return (temp[i]);
 		i++;
 	}
 	if (access(cmd, X_OK) == 0)
@@ -53,13 +53,13 @@ char	**relative_path(char *av, char **env)
 	if (av)
 	{
 		command = ft_split(av, ' ');
-		if (!command && !command[0] && ft_strchr())
+		if (!command && !command[0])
 			return (NULL);
-	}	
+	}
 	cmd = find_cmd(path, command[0]);
 	if (!cmd)
 		ft_error("Comando no encontrado");
 	if (access(cmd, X_OK) == 0)
-		return(command);
+		return (command);
 	return (NULL);
 }
