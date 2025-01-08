@@ -1,32 +1,31 @@
 #include "pipex.h"
 
-//Funcion para encontrar el path dentro del **env y convertirlo en *str;
+char	*ft_error(char *mensaje)
+{
+	perror(mensaje);
+	return (NULL);
+}
 
 char	*find_path(char **env)
 {
 	int	i;
 
-	if (!env) // Si **env no existe falla;
-		return (NULL);
 	i = 0;
-	while (env[i]) //Recorremos el **env;
+	while (env[i])
 	{
-		if (ft_strncmp(env[i], "PATH=", 5) == 0) //Buscar el path;
+		if (ft_strncmp(env[i], "PATH=", 5) == 0)
 		{
-			*env = ft_strdup(env[i]); //subcadena con el path;
-			return (ft_strchr(env[i], '/'));//*str final sin la palabra
-			//"path" (solo necesitamos las direcciones);
+			*env = ft_strdup(env[i]);
+			return (ft_strchr(env[i], '/'));
 		}
 		i++;
 	}
-	return (NULL); //Si no encontramos el path falla;
+	return (NULL);
 }
-
-//Funcion para encontrar el directorio del comando y devolverlo;
 
 char	*find_cmd(char *path, char *cmd)
 {
-	char	**temp; //temp para no sobreescribir el path
+	char	**temp;
 	int	i;
 
 	i = 0;
@@ -35,14 +34,14 @@ char	*find_cmd(char *path, char *cmd)
 	{
 		temp[i] = ft_strjoin(temp[i], "/");
 		temp[i] = ft_strjoin(temp[i], cmd);
-		if (access(temp[i], X_OK) == 0) //funcion para confirmar que es ejecutable
+		if (access(temp[i], X_OK) == 0)
 			return(temp[i]);
 		i++;
 	}
+	if (access(cmd, X_OK) == 0)
+		return (cmd);
 	return (NULL);
 }
-
-//Para ejecutar las anteriores, tiene que devolver array por el execve
 
 char	**relative_path(char *av, char **env)
 {
@@ -51,21 +50,14 @@ char	**relative_path(char *av, char **env)
 	char	**command;
 
 	path = find_path(env);
-	cmd = find_cmd(path, av);
-	if (cmd)
-		command = ft_split(cmd, ' ');
-	else
-		command = NULL;
-	return (command);
+	if (av)
+	{
+		command = ft_split(av, ' ');
+		if (!command && !command[0])
+			return (NULL);
+	}	
+	cmd = find_cmd(path, command[0]);
+	if (access(cmd, X_OK) == 0)
+		return(command);
+	return (NULL);
 }
-
-/*
-int	main(int ac, char **av, char **env)
-{
-	char	*path = find_path(env);
-	printf("paso 1:\n%s\n\n", path);
-
-	char	*comandos = find_cmd(path, av[1]);
-	printf("paso 2:\n%s\n", comandos); //recuerda pasarle el argumento del cmd!!
-}
-*/
