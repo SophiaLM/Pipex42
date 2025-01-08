@@ -53,10 +53,12 @@ char	**relative_path(char *av, char **env)
 	if (av)
 	{
 		command = ft_split(av, ' ');
-		if (!command && !command[0])
+		if (!command && !command[0] && ft_strchr())
 			return (NULL);
 	}	
 	cmd = find_cmd(path, command[0]);
+	if (!cmd)
+		ft_error("Comando no encontrado");
 	if (access(cmd, X_OK) == 0)
 		return(command);
 	return (NULL);
