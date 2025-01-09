@@ -64,10 +64,7 @@ int	main(int ac, char **av, char **env)
 	int		status;
 
 	if (ac != 5)
-	{
 		ft_error("Numero de argumentos invalido");
-		return (-1);
-	}
 	pipe(fd);
 	pid1 = fork();
 	if (pid1 == -1)
